@@ -64,6 +64,28 @@ export const logInUser = (userData) => {
   };
 };
 
+/* export const getProfile = (userData) => {
+  return async (dispatch, getState) => {
+    try {
+      const res = await fetch("http://localhost:4000/api/users/profile", {
+        method: "GET",
+        body: JSON.stringify(userData),
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
+
+      if (res.ok) {
+        dispatch({ type: LOG_IN_USER, payload: userData });
+        dispatch({ type: IS_LOADING_USERS, payload: false });
+        toast.success("User is logged in");
+      }
+    } catch (error) {
+      toast.error("User could not log in, please try again");
+    }
+  };
+}; */
+
 export const logout = () => {
   return async (dispatch, getState) => {
     try {
