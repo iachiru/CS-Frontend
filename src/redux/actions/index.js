@@ -7,6 +7,7 @@ export const IS_ERROR_USERS = "IS_ERROR_USERS";
 export const USER_MESSAGE = "USER_MESSAGE";
 export const LOG_IN_USER = "LOG_IN_USER";
 export const LOGOUT = "LOGOUT";
+export const GET_PROFILE = "GET_PROFILE";
 
 export const registerUser = (userData) => {
   return async (dispatch, getState) => {
@@ -64,7 +65,7 @@ export const logInUser = (userData) => {
   };
 };
 
-/* export const getProfile = (userData) => {
+export const getProfile = (userData) => {
   return async (dispatch, getState) => {
     try {
       const res = await fetch("http://localhost:4000/api/users/profile", {
@@ -84,7 +85,7 @@ export const logInUser = (userData) => {
       toast.error("User could not log in, please try again");
     }
   };
-}; */
+};
 
 export const logout = () => {
   return async (dispatch, getState) => {

@@ -1,4 +1,5 @@
 import {
+  GET_PROFILE,
   IS_ERROR_USERS,
   IS_LOADING_USERS,
   LOGOUT,
@@ -45,6 +46,11 @@ const userReducer = (state = initialState, action) => {
         isError: action.payload,
       };
     case USER_MESSAGE:
+      return {
+        ...state,
+        message: action.payload,
+      };
+    case GET_PROFILE:
       return {
         ...state,
         message: action.payload,
