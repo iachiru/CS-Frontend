@@ -1,13 +1,21 @@
 import { GET_KITCHEN } from "../actions";
 
-const initialState = { name: "" };
+const initialState = {
+  image: "",
+  ref: "",
+  price: "",
+  description: "",
+  kitchenType: "",
+  address: "",
+  user: "",
+};
 
 const kitchenReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_KITCHEN:
       return {
         ...state,
-        name: action.payload,
+        message: action.payload,
       };
 
     default:

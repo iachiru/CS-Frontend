@@ -27,7 +27,8 @@ const userReducer = (state = initialState, action) => {
     case LOG_IN_USER:
       return {
         ...state,
-        user: action.payload,
+        user: action.payload._id,
+        token: action.payload.token,
       };
     case LOGOUT:
       return {
@@ -53,7 +54,7 @@ const userReducer = (state = initialState, action) => {
     case GET_PROFILE:
       return {
         ...state,
-        message: action.payload,
+        user: action.payload,
       };
     default:
       return state;

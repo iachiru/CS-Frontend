@@ -22,7 +22,7 @@ const navigate = useNavigate()
 const onSubmit = (e)=>{
 e.preventDefault()
 dispatch(logInUser(formData))
-navigate("/profile")
+//navigate("/profile")
 
 }
 

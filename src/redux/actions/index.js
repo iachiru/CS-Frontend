@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 export const GET_KITCHEN = "GET_KITCHEN";
@@ -21,9 +22,9 @@ export const registerUser = (userData) => {
       });
 
       if (response.status === 200 || response.status === 201) {
-        /*  localStorage.setItem("user", JSON.stringify(response.data.user));
-        localStorage.setItem("token", JSON.stringify(response.data.token)); */
-
+        /*  */
+        //when this 2 lines of code are on, it creates the user but it also catches and error
+        //and returns "Could not create user"
         dispatch({ type: REGISTER_USER, payload: userData });
         dispatch({ type: IS_LOADING_USERS, payload: false });
         toast.success("user registered");
@@ -44,19 +45,26 @@ export const registerUser = (userData) => {
 };
 
 export const logInUser = (userData) => {
+  const user = { email: userData.email, password: userData.password };
+  console.log(user);
+
   return async (dispatch, getState) => {
     try {
       const res = await fetch("http://localhost:4000/api/users/login", {
         method: "POST",
-        body: JSON.stringify(userData),
+        body: JSON.stringify(user),
         headers: {
-          "Content-type": "application/json",
+          "Content-Type": "application/json",
         },
       });
 
       if (res.ok) {
-        dispatch({ type: LOG_IN_USER, payload: userData });
+        const data = await res.json();
+        dispatch({ type: LOG_IN_USER, payload: data });
         dispatch({ type: IS_LOADING_USERS, payload: false });
+        console.log("user after fetch", data);
+        localStorage.setItem("user", JSON.stringify(data._id));
+        localStorage.setItem("token", JSON.stringify(data.token));
         toast.success("User is logged in");
       }
     } catch (error) {
@@ -65,21 +73,40 @@ export const logInUser = (userData) => {
   };
 };
 
-export const getProfile = (userData) => {
+export const getProfile = () => {
   return async (dispatch, getState) => {
     try {
+      const token = localStorage.getItem("token").replace(/['"]+/g, "");
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
       const res = await fetch("http://localhost:4000/api/users/profile", {
-        method: "GET",
-        body: JSON.stringify(userData),
-        headers: {
-          "Content-type": "application/json",
-        },
+        headers,
       });
 
       if (res.ok) {
-        dispatch({ type: LOG_IN_USER, payload: userData });
-        dispatch({ type: IS_LOADING_USERS, payload: false });
-        toast.success("User is logged in");
+        const data = await res.json();
+        dispatch({ type: GET_PROFILE, payload: data });
+      } else {
+        console.log("Error getting user");
+      }
+    } catch (error) {
+      toast.error("Could not get profile");
+    }
+  };
+};
+
+export const getAllUsers = (userData) => {
+  return async (dispatch, getState) => {
+    try {
+      const res = await fetch("http://localhost:4000/api/users");
+
+      if (res.ok) {
+        const data = await res.json();
+        console.log(data);
+      } else {
+        console.log("Error getting users");
       }
     } catch (error) {
       toast.error("User could not log in, please try again");
@@ -95,6 +122,35 @@ export const logout = () => {
       toast.success("User has logged out");
     } catch (error) {
       console.log(error);
+    }
+  };
+};
+
+//kitchenReducer
+
+export const getKitchenByUserAndId = (kitchenId) => {
+  return async (dispatch, getState) => {
+    try {
+      const token = localStorage.getItem("token").replace(/['"]+/g, "");
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+      const userId = localStorage.getItem("user").replace(/['"]+/g, "");
+      const kitchen = useSelector((state) => state.users.user);
+      console.log(kitchen);
+      const res = await fetch(
+        `http://localhost:4000/api/users/${userId}/kitchen/${kitchenId}`,
+        headers
+      );
+
+      if (res.ok) {
+        const data = await res.json();
+        console.log(data);
+      } else {
+        console.log("Error getting users");
+      }
+    } catch (error) {
+      toast.error("User could not log in, please try again");
     }
   };
 };
