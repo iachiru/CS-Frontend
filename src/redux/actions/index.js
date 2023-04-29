@@ -46,7 +46,6 @@ export const registerUser = (userData) => {
 
 export const logInUser = (userData) => {
   const user = { email: userData.email, password: userData.password };
-  console.log(user);
 
   return async (dispatch, getState) => {
     try {
@@ -88,6 +87,7 @@ export const getProfile = () => {
       if (res.ok) {
         const data = await res.json();
         dispatch({ type: GET_PROFILE, payload: data });
+        console.log("user inside get profile", data);
       } else {
         console.log("Error getting user");
       }

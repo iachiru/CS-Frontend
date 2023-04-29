@@ -1,29 +1,29 @@
-import { useState} from "react";
+import {  useState} from "react";
 import { Form, Button } from "react-bootstrap";
 
 import React from 'react'
-import { logInUser } from "../redux/actions";
-import { useDispatch } from "react-redux";
+import {  logInUser } from "../redux/actions";
+import { useDispatch,  } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
 
+const dispatch = useDispatch()
+const navigate = useNavigate()
 const [formData, setFormData] = useState({
     email: "",
     password: "",  
 })
-
-const dispatch =useDispatch()
-
 const { email, password} = formData
 
-const navigate = useNavigate()
+
+
+
 
 const onSubmit = (e)=>{
 e.preventDefault()
 dispatch(logInUser(formData))
-//navigate("/profile")
-
+navigate("/profile")
 }
 
   return (

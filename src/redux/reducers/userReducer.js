@@ -26,9 +26,10 @@ const userReducer = (state = initialState, action) => {
       };
     case LOG_IN_USER:
       return {
-        ...state,
-        user: action.payload._id,
-        token: action.payload.token,
+        user: action.payload,
+        isError: false,
+        isLoading: false,
+        message: "",
       };
     case LOGOUT:
       return {
@@ -53,7 +54,6 @@ const userReducer = (state = initialState, action) => {
       };
     case GET_PROFILE:
       return {
-        ...state,
         user: action.payload,
       };
     default:
