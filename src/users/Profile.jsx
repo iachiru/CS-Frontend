@@ -1,11 +1,16 @@
 import { useSelector } from "react-redux"
 
+import Kitchens from "../pages/Kitchens"
+
 
 
 function Profile() {
 
-  const user = useSelector(state=> state.users.user)
 
+  const user = useSelector(state => state.users.user)
+   
+console.log("user in profile", user)
+  
   return (
     
     user &&  
@@ -16,6 +21,7 @@ function Profile() {
          <li key={i}>{kitchen}</li>
       ))}
     </ol>
+    <Kitchens/>
     </> 
    
     

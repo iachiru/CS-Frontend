@@ -128,7 +128,7 @@ export const logout = () => {
 
 //kitchenReducer
 
-export const getKitchenByUserAndId = (kitchenId) => {
+export const getKitchenByUser = (kitchenId) => {
   return async (dispatch, getState) => {
     try {
       const token = localStorage.getItem("token").replace(/['"]+/g, "");
@@ -136,16 +136,18 @@ export const getKitchenByUserAndId = (kitchenId) => {
         Authorization: `Bearer ${token}`,
       };
       const userId = localStorage.getItem("user").replace(/['"]+/g, "");
-      const kitchen = useSelector((state) => state.users.user);
-      console.log(kitchen);
+      /*  const userInfo = useSelector((state) => state.users.user);
+      const kitchenId = userInfo.forEach((kitchen, i) => kitchen);
+      console.log(kitchenId); */
       const res = await fetch(
-        `http://localhost:4000/api/users/${userId}/kitchen/${kitchenId}`,
+        `http://localhost:4000/api/users/${userId}/kitchen`,
         headers
       );
 
       if (res.ok) {
         const data = await res.json();
-        console.log(data);
+        dispatch({ type: GET_KITCHEN, payload: data });
+        console.log("info from gKBU", data);
       } else {
         console.log("Error getting users");
       }
