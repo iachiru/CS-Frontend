@@ -5,15 +5,24 @@ function HomePage() {
   const [data, setData]=useState("")
 
       const getData=async()=>{
-        const response = await Axios.get("http://localhost:4000/getData")
+        const response = await Axios.get("http://localhost:4000/api/users/kitchens")
         setData(response.data)
       }
 
       useEffect(()=>{getData()},[])
   return (
-    <div>
-      {data}
-    </div>
+   
+      data && <>
+      {data.map((kitchen, i)=><div key={i}>
+      <h1>Kitchen {kitchen.ref} </h1>
+      <p>Address:{kitchen.address}</p>
+      <p>Image:{kitchen.image}</p>
+      <p>Price:{kitchen.price}</p>
+      <p>Description:{kitchen.description}</p>
+      <p>Kitchen Type:{kitchen.kitchenType}</p>
+     </div> )}
+      </>
+    
   )
 }
 

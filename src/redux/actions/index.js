@@ -9,6 +9,7 @@ export const USER_MESSAGE = "USER_MESSAGE";
 export const LOG_IN_USER = "LOG_IN_USER";
 export const LOGOUT = "LOGOUT";
 export const GET_PROFILE = "GET_PROFILE";
+export const REGISTER_KITCHEN = "REGISTER_KITCHEN";
 
 export const registerUser = (userData) => {
   return async (dispatch, getState) => {
@@ -27,6 +28,7 @@ export const registerUser = (userData) => {
         //and returns "Could not create user"
         dispatch({ type: REGISTER_USER, payload: userData });
         dispatch({ type: IS_LOADING_USERS, payload: false });
+
         toast.success("user registered");
         console.log("this is the response", response);
       } else if (response.status === 400) {
@@ -61,7 +63,9 @@ export const logInUser = (userData) => {
         const data = await res.json();
         dispatch({ type: LOG_IN_USER, payload: data });
         dispatch({ type: IS_LOADING_USERS, payload: false });
-        console.log("user after fetch", data);
+        /* dispatch({ type: GET_KITCHEN, payload: data }); */
+
+        console.log("data.kitchen", data);
         localStorage.setItem("user", JSON.stringify(data._id));
         localStorage.setItem("token", JSON.stringify(data.token));
         toast.success("User is logged in");
@@ -119,6 +123,7 @@ export const logout = () => {
     try {
       dispatch({ type: LOGOUT, payload: localStorage.removeItem("user") });
       dispatch({ type: LOGOUT, payload: localStorage.removeItem("token") });
+      /* dispatch({ type: LOGOUT, payload: "" }); */
       toast.success("User has logged out");
     } catch (error) {
       console.log(error);
@@ -128,7 +133,7 @@ export const logout = () => {
 
 //kitchenReducer
 
-export const getKitchenByUser = (kitchenId) => {
+export const getKitchenByUser = () => {
   return async (dispatch, getState) => {
     try {
       const token = localStorage.getItem("token").replace(/['"]+/g, "");
@@ -153,6 +158,47 @@ export const getKitchenByUser = (kitchenId) => {
       }
     } catch (error) {
       toast.error("User could not log in, please try again");
+    }
+  };
+};
+
+export const registerKitchen = (kitchenData) => {
+  return async (dispatch, getState) => {
+    try {
+      const token = localStorage.getItem("token").replace(/['"]+/g, "");
+      /* const headers = {
+        Authorization: `Bearer ${token}`,
+      }; */
+      const userId = localStorage.getItem("user").replace(/['"]+/g, "");
+      const response = await fetch(
+        `http://localhost:4000/api/users/${userId}/kitchen`,
+        {
+          method: "POST",
+          body: JSON.stringify(kitchenData),
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200 || response.status === 201) {
+        /*  */
+        //when this 2 lines of code are on, it creates the user but it also catches and error
+        //and returns "Could not create user"
+        dispatch({ type: REGISTER_KITCHEN, payload: kitchenData });
+        console.log("this is the kitchenData", kitchenData);
+      } else if (response.status === 400) {
+        toast.error("Something went wrong");
+      } else {
+        dispatch({ type: IS_ERROR_USERS, payload: true });
+        dispatch({ type: IS_LOADING_USERS, payload: false });
+        toast.error("kitchen could not be created");
+      }
+    } catch (error) {
+      dispatch({ type: IS_ERROR_USERS, payload: true });
+      dispatch({ type: IS_LOADING_USERS, payload: false });
+      toast.error("Could not create kitchen");
     }
   };
 };

@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Profile from "./users/Profile";
 import Kitchens from "./pages/Kitchens";
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route element={<Login />} path="/login" />
         <Route element={<Profile />} path="/profile" />
         <Route element={<Kitchens />} path="/kitchens" />
+        <Route element={<HomePage />} path="/" />
       </Routes>
       <ToastContainer />
     </BrowserRouter>

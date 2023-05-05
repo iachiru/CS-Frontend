@@ -1,4 +1,4 @@
-import { GET_KITCHEN } from "../actions";
+import { GET_KITCHEN, REGISTER_KITCHEN } from "../actions";
 
 const initialState = {
   image: "",
@@ -14,7 +14,11 @@ const kitchenReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_KITCHEN:
       return {
-        user: action.payload,
+        kitchen: action.payload,
+      };
+    case REGISTER_KITCHEN:
+      return {
+        kitchen: action.payload,
       };
 
     default:

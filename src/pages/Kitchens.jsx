@@ -1,13 +1,18 @@
 import { useDispatch, useSelector } from "react-redux"
 import { getKitchenByUser } from "../redux/actions"
+import { useEffect } from "react"
 
 
 function Kitchens() {
 
 
   const dispatch = useDispatch()
-  const kitchen = useSelector(state => state.kitchen.user.kitchen)
-  /* dispatch(getKitchenByUser()) */
+  const kitchen = useSelector(state => state.kitchen.kitchen.kitchen)
+ 
+useEffect(()=>{
+dispatch(getKitchenByUser())
+  },[])
+ 
 
   console.log("Kitchens logs", kitchen)
   return (
