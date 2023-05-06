@@ -10,6 +10,8 @@ export const LOG_IN_USER = "LOG_IN_USER";
 export const LOGOUT = "LOGOUT";
 export const GET_PROFILE = "GET_PROFILE";
 export const REGISTER_KITCHEN = "REGISTER_KITCHEN";
+export const EDIT_KITCHEN = "EDIT_KITCHEN";
+export const DELETE_KITCHEN = "DELETE_KITCHEN";
 
 export const registerUser = (userData) => {
   return async (dispatch, getState) => {
@@ -23,9 +25,6 @@ export const registerUser = (userData) => {
       });
 
       if (response.status === 200 || response.status === 201) {
-        /*  */
-        //when this 2 lines of code are on, it creates the user but it also catches and error
-        //and returns "Could not create user"
         dispatch({ type: REGISTER_USER, payload: userData });
         dispatch({ type: IS_LOADING_USERS, payload: false });
 
@@ -141,9 +140,6 @@ export const getKitchenByUser = () => {
         Authorization: `Bearer ${token}`,
       };
       const userId = localStorage.getItem("user").replace(/['"]+/g, "");
-      /*  const userInfo = useSelector((state) => state.users.user);
-      const kitchenId = userInfo.forEach((kitchen, i) => kitchen);
-      console.log(kitchenId); */
       const res = await fetch(
         `http://localhost:4000/api/users/${userId}/kitchen`,
         headers
@@ -166,9 +162,6 @@ export const registerKitchen = (kitchenData) => {
   return async (dispatch, getState) => {
     try {
       const token = localStorage.getItem("token").replace(/['"]+/g, "");
-      /* const headers = {
-        Authorization: `Bearer ${token}`,
-      }; */
       const userId = localStorage.getItem("user").replace(/['"]+/g, "");
       const response = await fetch(
         `http://localhost:4000/api/users/${userId}/kitchen`,
@@ -199,6 +192,35 @@ export const registerKitchen = (kitchenData) => {
       dispatch({ type: IS_ERROR_USERS, payload: true });
       dispatch({ type: IS_LOADING_USERS, payload: false });
       toast.error("Could not create kitchen");
+    }
+  };
+};
+
+export const deleteKitchen = (kitchenId) => {
+  return async (dispatch, getState) => {
+    try {
+      const token = localStorage.getItem("token").replace(/['"]+/g, "");
+      const userId = localStorage.getItem("user").replace(/['"]+/g, "");
+
+      console.log("this is the kitchen id", kitchenId);
+      console.log("userID", userId);
+
+      const response = await fetch(
+        `http://localhost:4000/api/users/${userId}/kitchen/${kitchenId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 204) {
+        toast.success("Kitchen has been deleted");
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 };

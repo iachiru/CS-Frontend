@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 import { registerKitchen } from '../redux/actions'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function CreateKitchen() {
 
@@ -20,15 +21,23 @@ const [error, setError] = useState("")
 const {image, price, description, kitchenType, address} = formData
 
 const dispatch = useDispatch()
-
+const navigate = useNavigate()
 
 
 const onSubmit = (e)=>{
 e.preventDefault()
 dispatch(registerKitchen(formData))
-console.log(formData)
-setError("")
+
+if (formData.kitchenType === "") {
+  toast.error("Please choose one option")
+} else {
+  setError("")
+  toast.success("Kitchen created")
+  navigate("/profile")
 }
+
+}
+
 
 
 
@@ -51,21 +60,26 @@ setError("")
 
       <Form.Group className="mb-3" controlId="formBasicDescription">
         <Form.Label>Description</Form.Label>
-        <Form.Control type="text" placeholder="Please enter a description" value={description} onChange={(e)=>{setFormData({...formData, description: e.target.value})
+        <Form.Control as="textarea" rows={3} placeholder="Please enter a description" value={description} onChange={(e)=>{setFormData({...formData, description: e.target.value})
       setError("")}} />
       </Form.Group>
 
-      <Form.Group className="mb-3" controlId="formBasickT">
+     <Form.Group className="mb-3" controlId="formBasickT">
         <Form.Label>Address</Form.Label> {/* this needs to be a dropdown */}
         <Form.Control type="text" placeholder="" value={address} onChange={(e)=>{setFormData({...formData, address: e.target.value})
       setError("")}} />
       </Form.Group>
 
-<Form.Group className="mb-3" controlId="formBasicDropdown">
-        <Form.Label>Kitchen Type</Form.Label> {/* this needs to be a dropdown */}
-        <Form.Control type="dropdown" placeholder="" value={kitchenType} onChange={(e)=>{setFormData({...formData, kitchenType: e.target.value})
-      setError("")}} />
-      </Form.Group>
+     <Form.Group controlId="exampleForm.SelectCustom">
+      <Form.Label>Kitchen Type</Form.Label>
+      <Form.Control as="select" required custom  value={kitchenType} onChange={(e)=>{setFormData({...formData, kitchenType: e.target.value})
+      setError("")}} >
+      <option defaultChecked>Choose one...</option>
+      <option>Dark kitchen</option>
+      <option>Residency</option>
+      <option>Central production unit</option>
+     </Form.Control>
+    </Form.Group>
 
    
       <Button variant="primary" type="submit">

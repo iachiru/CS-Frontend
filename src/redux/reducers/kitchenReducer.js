@@ -1,4 +1,9 @@
-import { GET_KITCHEN, REGISTER_KITCHEN } from "../actions";
+import {
+  DELETE_KITCHEN,
+  EDIT_KITCHEN,
+  GET_KITCHEN,
+  REGISTER_KITCHEN,
+} from "../actions";
 
 const initialState = {
   image: "",
@@ -17,6 +22,14 @@ const kitchenReducer = (state = initialState, action) => {
         kitchen: action.payload,
       };
     case REGISTER_KITCHEN:
+      return {
+        kitchen: action.payload,
+      };
+    case EDIT_KITCHEN:
+      return {
+        kitchen: action.payload,
+      };
+    case DELETE_KITCHEN:
       return {
         kitchen: action.payload,
       };

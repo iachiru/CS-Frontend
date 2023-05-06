@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from "react-redux"
-import { getKitchenByUser } from "../redux/actions"
+import {  getKitchenByUser } from "../redux/actions"
 import { useEffect } from "react"
+
+import SingleKitchen from "./SingleKitchen"
 
 
 function Kitchens() {
@@ -9,24 +11,25 @@ function Kitchens() {
   const dispatch = useDispatch()
   const kitchen = useSelector(state => state.kitchen.kitchen.kitchen)
  
+ 
+  
 useEffect(()=>{
 dispatch(getKitchenByUser())
   },[])
+
+
  
 
   console.log("Kitchens logs", kitchen)
   return (
     kitchen &&
-    <>
+    <div className="cardContainer">
      {kitchen.map((kitchen, i)=>
-     <div key={i}>
-      <h1>Kitchen {kitchen.ref} </h1>
-      <p>Image:{kitchen.image}</p>
-      <p>Price:{kitchen.price}</p>
-      <p>Description:{kitchen.description}</p>
-      <p>Kitchen Type:{kitchen.kitchenType}</p>
-     </div> )}
-    </>
+    
+  <SingleKitchen data={kitchen} key={i}/>
+     )}
+
+    </div>
   )
 }
 
