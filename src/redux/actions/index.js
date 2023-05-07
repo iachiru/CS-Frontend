@@ -12,6 +12,7 @@ export const GET_PROFILE = "GET_PROFILE";
 export const REGISTER_KITCHEN = "REGISTER_KITCHEN";
 export const EDIT_KITCHEN = "EDIT_KITCHEN";
 export const DELETE_KITCHEN = "DELETE_KITCHEN";
+export const SET_EDITOR = "SET_EDITOR";
 
 export const registerUser = (userData) => {
   return async (dispatch, getState) => {
@@ -202,9 +203,6 @@ export const deleteKitchen = (kitchenId) => {
       const token = localStorage.getItem("token").replace(/['"]+/g, "");
       const userId = localStorage.getItem("user").replace(/['"]+/g, "");
 
-      console.log("this is the kitchen id", kitchenId);
-      console.log("userID", userId);
-
       const response = await fetch(
         `http://localhost:4000/api/users/${userId}/kitchen/${kitchenId}`,
         {
@@ -218,9 +216,49 @@ export const deleteKitchen = (kitchenId) => {
 
       if (response.status === 204) {
         toast.success("Kitchen has been deleted");
+        dispatch(getKitchenByUser());
       }
     } catch (error) {
       console.log(error);
     }
+  };
+};
+
+export const editKitchen = (kitchenData, kitchenId) => {
+  return async (dispatch, getState) => {
+    try {
+      const token = localStorage.getItem("token").replace(/['"]+/g, "");
+      const userId = localStorage.getItem("user").replace(/['"]+/g, "");
+
+      console.log("this is the kitchen id", kitchenId);
+      console.log("userID", userId);
+
+      const response = await fetch(
+        `http://localhost:4000/api/users/${userId}/kitchen/${kitchenId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-type": "application/json",
+            body: JSON.stringify(kitchenData),
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        toast.success("Kitchen has been updated");
+        dispatch(getKitchenByUser());
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const setEditor = () => {
+  return async (dispatch, getState) => {
+    try {
+      dispatch({ type: SET_EDITOR, payload: true });
+    } catch {}
   };
 };

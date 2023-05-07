@@ -3,6 +3,7 @@ import {
   EDIT_KITCHEN,
   GET_KITCHEN,
   REGISTER_KITCHEN,
+  SET_EDITOR,
 } from "../actions";
 
 const initialState = {
@@ -28,6 +29,11 @@ const kitchenReducer = (state = initialState, action) => {
     case EDIT_KITCHEN:
       return {
         kitchen: action.payload,
+      };
+    case SET_EDITOR:
+      return {
+        ...state,
+        setEditor: action.payload,
       };
     case DELETE_KITCHEN:
       return {

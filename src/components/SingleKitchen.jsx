@@ -1,16 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Card, ListGroup, ListGroupItem } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
-import { deleteKitchen } from '../redux/actions'
+import { deleteKitchen} from '../redux/actions'
+import KitchenModal from './KichenModal'
 
 function SingleKitchen (props) {
 
 const dispatch = useDispatch()
 
-    console.log("props", props.data)
-      const handleDelete = () =>{
+
+
+    
+const handleDelete = () =>{
     dispatch(deleteKitchen(props.data._id))
   }
+
+
+ 
+
   return (
     <>
     <Card style={{ width: '18rem' }} className="card">
@@ -27,7 +34,7 @@ const dispatch = useDispatch()
     <ListGroupItem>Kitchen Address:{props.data.address}</ListGroupItem>
   </ListGroup>
   <Card.Body className="cardButton">
-    <Button >Edit</Button>
+    <KitchenModal data={props.data}/>
     <Button onClick={handleDelete} >Delete</Button>
   </Card.Body>
 </Card>

@@ -1,14 +1,20 @@
-import React, { useState } from 'react'
-import { Button, Form } from 'react-bootstrap'
-import { toast } from 'react-toastify'
-import { editKitchen, registerKitchen } from '../redux/actions'
-import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from "react";
+import { Button, Form, Modal } from "react-bootstrap";
 
-function CreateKitchen() {
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {  editKitchen, registerKitchen } from "../redux/actions";
 
-const [formData, setFormData] = useState({
+
+
+function KitchenModal(props) {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  
+  const [formData, setFormData] = useState({
     image:"",
     price: "",
     description: "",
@@ -16,9 +22,21 @@ const [formData, setFormData] = useState({
     address:"",
 
 })
+
+useEffect(()=>{
+ if (props.data) {
+  setFormData({
+    image:props.data.image,
+    price: props.data.price,
+    description: props.data.description,
+    kitchenType:props.data.kitchenType,
+    address:props.data.address,}
+ )
+ } 
+},[])
+
+
 const [error, setError] = useState("")
-const [editor, setEditor] = useState(false);
-const stateEditor = useSelector(state=>state.kitchen.kitchen.kitchen.setEditor)
 const {image, price, description, kitchenType, address} = formData
 
 const dispatch = useDispatch();
@@ -27,8 +45,14 @@ const navigate = useNavigate();
 
 const onSubmit = (e)=>{
 e.preventDefault()
-if (editor === true){dispatch(editKitchen(formData))}
-if (!editor){dispatch(registerKitchen(formData))}
+
+if(props.data){
+  dispatch(editKitchen(formData, props.data._id))
+} else {
+  
+  dispatch(registerKitchen(formData))
+}
+
 
 if (formData.kitchenType === "") {
   toast.error("Please choose one option")
@@ -39,13 +63,21 @@ if (formData.kitchenType === "") {
 }
 }
 
-if (editor === true) {
-  setFormData()
-}
-
-
   return (
-      <Form onSubmit={onSubmit} >
+    <>
+    { props.data  ?
+      <Button variant="primary" onClick={handleShow}>
+        Edit
+      </Button> : <Button variant="primary" onClick={handleShow}>
+        Manage Kitchens
+      </Button>  }
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title></Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={onSubmit} >
         {error && toast.error(error)}
   
       <Form.Group className="mb-3" controlId="formBasicImage"> {/* has to be a choose file */}
@@ -83,15 +115,16 @@ if (editor === true) {
       <option>Central production unit</option>
      </Form.Control>
     </Form.Group>
-
-   { editor ? <Button variant="primary" type="submit">
-        Update
-      </Button> :
       <Button variant="primary" type="submit">
         Submit
-      </Button>}
-    </Form>
-  )
+      </Button>
+    </Form></Modal.Body>
+        <Modal.Footer>
+
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
 }
 
-export default CreateKitchen
+export default KitchenModal;

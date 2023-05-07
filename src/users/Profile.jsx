@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux"
 
 import Kitchens from "../components/Kitchens"
+import KitchenModal from "../components/KichenModal"
 
 
 
@@ -19,7 +20,7 @@ function Profile() {
     <h1>Name: {user.name}</h1>
     <p>Email: {user.email}</p>
     <Kitchens/>
-    
+   {/*  <KitchenModal data={""}/> */}
     </> 
    
     
