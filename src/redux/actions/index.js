@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 export const GET_KITCHEN = "GET_KITCHEN";
@@ -13,6 +12,8 @@ export const REGISTER_KITCHEN = "REGISTER_KITCHEN";
 export const EDIT_KITCHEN = "EDIT_KITCHEN";
 export const DELETE_KITCHEN = "DELETE_KITCHEN";
 export const SET_EDITOR = "SET_EDITOR";
+export const KITCHEN_LOGOUT = "KITCHEN_LOGOUT";
+export const EDIT_USER = "EDIT_USER";
 
 export const registerUser = (userData) => {
   return async (dispatch, getState) => {
@@ -26,8 +27,12 @@ export const registerUser = (userData) => {
       });
 
       if (response.status === 200 || response.status === 201) {
+        const data = await response.json();
+        console.log("This is data inside register", data);
         dispatch({ type: REGISTER_USER, payload: userData });
         dispatch({ type: IS_LOADING_USERS, payload: false });
+        /* localStorage.setItem("user", JSON.stringify(data._id));
+        localStorage.setItem("token", JSON.stringify(data.token)); */
 
         toast.success("user registered");
         console.log("this is the response", response);
@@ -42,6 +47,45 @@ export const registerUser = (userData) => {
       dispatch({ type: IS_ERROR_USERS, payload: true });
       dispatch({ type: IS_LOADING_USERS, payload: false });
       toast.error("Could not create user");
+    }
+  };
+};
+
+// this needs to be written
+export const editUser = (userData) => {
+  return async (dispatch, getState) => {
+    try {
+      const token = localStorage.getItem("token").replace(/['"]+/g, "");
+      const userId = localStorage.getItem("user").replace(/['"]+/g, "");
+      console.log("this are token and user", token, userId);
+      console.log("Hello from editUser");
+      const response = await fetch(
+        `http://localhost:4000/api/users/${userId}`,
+        {
+          method: "PUT",
+          body: JSON.stringify(userData),
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200 || response.status === 201) {
+        dispatch({ type: EDIT_USER, payload: userData });
+        toast.success("User information updated");
+        console.log("this is the response", response);
+      } else if (response.status === 400) {
+        toast.error("Information could not be updated");
+      } else {
+        dispatch({ type: IS_ERROR_USERS, payload: true });
+        dispatch({ type: IS_LOADING_USERS, payload: false });
+        toast.error("Something went wrong");
+      }
+    } catch (error) {
+      dispatch({ type: IS_ERROR_USERS, payload: true });
+      dispatch({ type: IS_LOADING_USERS, payload: false });
+      toast.error("Please try again");
     }
   };
 };
@@ -64,10 +108,11 @@ export const logInUser = (userData) => {
         dispatch({ type: LOG_IN_USER, payload: data });
         dispatch({ type: IS_LOADING_USERS, payload: false });
         /* dispatch({ type: GET_KITCHEN, payload: data }); */
-
-        console.log("data.kitchen", data);
         localStorage.setItem("user", JSON.stringify(data._id));
         localStorage.setItem("token", JSON.stringify(data.token));
+
+        console.log("data.kitchen", data);
+
         toast.success("User is logged in");
       }
     } catch (error) {
@@ -123,7 +168,7 @@ export const logout = () => {
     try {
       dispatch({ type: LOGOUT, payload: localStorage.removeItem("user") });
       dispatch({ type: LOGOUT, payload: localStorage.removeItem("token") });
-      /* dispatch({ type: LOGOUT, payload: "" }); */
+      dispatch({ type: KITCHEN_LOGOUT, payload: "" });
       toast.success("User has logged out");
     } catch (error) {
       console.log(error);
@@ -237,9 +282,9 @@ export const editKitchen = (kitchenData, kitchenId) => {
         `http://localhost:4000/api/users/${userId}/kitchen/${kitchenId}`,
         {
           method: "PUT",
+          body: JSON.stringify(kitchenData),
           headers: {
             "Content-type": "application/json",
-            body: JSON.stringify(kitchenData),
             Authorization: `Bearer ${token}`,
           },
         }

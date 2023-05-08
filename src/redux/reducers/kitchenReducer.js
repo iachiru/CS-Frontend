@@ -2,6 +2,7 @@ import {
   DELETE_KITCHEN,
   EDIT_KITCHEN,
   GET_KITCHEN,
+  KITCHEN_LOGOUT,
   REGISTER_KITCHEN,
   SET_EDITOR,
 } from "../actions";
@@ -36,6 +37,10 @@ const kitchenReducer = (state = initialState, action) => {
         setEditor: action.payload,
       };
     case DELETE_KITCHEN:
+      return {
+        kitchen: action.payload,
+      };
+    case KITCHEN_LOGOUT:
       return {
         kitchen: action.payload,
       };

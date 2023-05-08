@@ -1,4 +1,5 @@
 import {
+  EDIT_USER,
   GET_PROFILE,
   IS_ERROR_USERS,
   IS_LOADING_USERS,
@@ -51,6 +52,10 @@ const userReducer = (state = initialState, action) => {
         message: action.payload,
       };
     case GET_PROFILE:
+      return {
+        user: action.payload,
+      };
+    case EDIT_USER:
       return {
         user: action.payload,
       };

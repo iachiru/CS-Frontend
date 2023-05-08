@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {  editKitchen, registerKitchen } from "../redux/actions";
+import {  editKitchen, getKitchenByUser, registerKitchen } from "../redux/actions";
 
 
 
@@ -48,18 +48,22 @@ e.preventDefault()
 
 if(props.data){
   dispatch(editKitchen(formData, props.data._id))
+  handleClose();
 } else {
   
   dispatch(registerKitchen(formData))
-}
 
-
-if (formData.kitchenType === "") {
+  if (formData.kitchenType === "") {
   toast.error("Please choose one option")
+  dispatch(getKitchenByUser())
 } else {
   setError("")
+  handleClose();
+  setFormData("")
   toast.success("Kitchen created")
-  navigate("/profile")
+  
+ 
+}
 }
 }
 
@@ -69,7 +73,7 @@ if (formData.kitchenType === "") {
       <Button variant="primary" onClick={handleShow}>
         Edit
       </Button> : <Button variant="primary" onClick={handleShow}>
-        Manage Kitchens
+        Create Kitchen
       </Button>  }
 
       <Modal show={show} onHide={handleClose}>
