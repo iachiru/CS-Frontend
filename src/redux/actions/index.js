@@ -307,3 +307,28 @@ export const setEditor = () => {
     } catch {}
   };
 };
+
+export const uploadProfilePic = (event) => {
+  return async (dispatch, getState) => {
+    try {
+      console.log("called on FE");
+      const token = localStorage.getItem("token").replace(/['"]+/g, "");
+
+      const file = event.target.files[0];
+      console.log("this is the file");
+      const formData = new FormData();
+      formData.append("image", file);
+      const res = await fetch("http://localhost:4000/api/users/user-pics", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("this is the res", res);
+      if (res.ok) {
+        console.log("File uploaded");
+      }
+    } catch (error) {}
+  };
+};
