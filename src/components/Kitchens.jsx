@@ -8,13 +8,10 @@ function Kitchens() {
   const dispatch = useDispatch();
   const kitchen = useSelector((state) => state.kitchen.kitchen.kitchen);
 
-  console.log("this is kitchen inside kitchens", kitchen);
-
   useEffect(() => {
     dispatch(getKitchenByUser());
   }, []);
 
-  console.log("Kitchens logs", kitchen);
   return (
     kitchen && (
       <div className="cardContainer">

@@ -1,55 +1,42 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { editUser } from "../redux/actions";
+import { editUser, getProfile } from "../redux/actions";
+import { useNavigate } from "react-router-dom";
 
 function AdditionalInfo() {
   const [formData, setFormData] = useState({
-    name: "",
-    password: "",
-    email: "",
     address: "",
     companyName: "",
     companyAddress: "",
     companyType: "",
-    host: false,
     hostType: "",
   });
 
   const { address, companyName, companyAddress, companyType, hostType } =
     formData;
   const [error, setError] = useState("");
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.users.user);
-
-  console.log("This is userInfo", user);
+  const navigate = useNavigate();
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    setError("");
     dispatch(editUser(formData));
+    navigate("/profile");
+    dispatch(getProfile());
   };
 
   return (
     user && (
       <>
+        <h3>
+          Hello {user.name}, please provide the following information to
+          complete your profile
+        </h3>
         <Form onSubmit={onSubmit}>
           {error && toast.error(error)}
-
-          <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Label>Name</Form.Label>
-            <Form.Control
-              type="name"
-              placeholder="Enter your full name"
-              value={user.name}
-              onChange={(e) => {
-                setFormData({ ...formData, name: e.target.value });
-                setError("");
-              }}
-            />
-          </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicAddress">
             <Form.Label>Address</Form.Label>

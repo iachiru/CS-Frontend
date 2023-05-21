@@ -3,9 +3,9 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { editUser } from "../redux/actions";
+import { editUser, getProfile } from "../redux/actions";
 
-function UserModal() {
+function UserModal(props) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -22,19 +22,23 @@ function UserModal() {
     hostType: "",
   });
 
-  const user = useSelector((state) => state.users.user);
-  console.log("user info in state", user);
+  useEffect(() => {
+    if (props.data) {
+      setFormData({
+        name: props.data.name,
+        email: props.data.email,
+        address: props.data.address,
+        companyName: props.data.companyName,
+        companyAddress: props.data.companyAddress,
+        companyType: props.data.companyType,
+        hostType: props.data.hostType,
+      });
+    }
+  }, []);
+
   const [error, setError] = useState("");
-  const {
-    name,
-    email,
-    password,
-    address,
-    companyName,
-    companyAddress,
-    companyType,
-    hostType,
-  } = formData;
+  const { name, address, companyName, companyAddress, companyType, hostType } =
+    formData;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -43,8 +47,8 @@ function UserModal() {
     e.preventDefault();
 
     dispatch(editUser(formData));
-    console.log("Hello from onSubmit");
-    /* handleClose(); */
+
+    handleClose();
   };
 
   return (
@@ -66,7 +70,7 @@ function UserModal() {
               <Form.Control
                 type="name"
                 placeholder="Enter your full name"
-                value={user.name}
+                value={name}
                 onChange={(e) => {
                   setFormData({ ...formData, name: e.target.value });
                   setError("");

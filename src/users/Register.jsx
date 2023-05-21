@@ -18,11 +18,6 @@ function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { name, email, password, password2 } = formData;
-  //const userRegistration = useSelector((state)=>state.users.user) // argument.reducername.key-value pair from store
-  //const isLoading = useSelector((state)=>state.user.isLoading)
-
-  /* useEffect(()=>{console.log(formData)
-},[formData]) */
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -35,12 +30,7 @@ function Register() {
     }
     setError("");
     dispatch(registerUser(formData));
-
-    if (!formData.host) {
-      navigate("/login");
-    } else {
-      navigate("/additional-info");
-    }
+    navigate("/login");
   };
 
   return (
@@ -57,7 +47,6 @@ function Register() {
             onChange={(e) => {
               setFormData({ ...formData, name: e.target.value });
               setError("");
-              console.log("this is the formData", formData);
             }}
           />
         </Form.Group>

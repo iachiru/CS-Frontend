@@ -57,7 +57,7 @@ export const editUser = (userData) => {
     try {
       const token = localStorage.getItem("token").replace(/['"]+/g, "");
       const userId = localStorage.getItem("user").replace(/['"]+/g, "");
-      console.log("this are token and user", token, userId);
+
       console.log("Hello from editUser");
       const response = await fetch(
         `http://localhost:4000/api/users/${userId}`,

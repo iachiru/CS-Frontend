@@ -12,6 +12,7 @@ import {
 const initialState = {
   user: JSON.parse(localStorage.getItem("user")) || null,
   token: JSON.parse(localStorage.getItem("token")) || null,
+
   isError: false,
   isLoading: true,
   message: "",
