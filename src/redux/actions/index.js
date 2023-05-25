@@ -14,6 +14,7 @@ export const DELETE_KITCHEN = "DELETE_KITCHEN";
 export const SET_EDITOR = "SET_EDITOR";
 export const KITCHEN_LOGOUT = "KITCHEN_LOGOUT";
 export const EDIT_USER = "EDIT_USER";
+export const AVATAR_UPLOAD = "AVATAR_UPLOAD";
 
 export const registerUser = (userData) => {
   return async (dispatch, getState) => {
@@ -203,6 +204,37 @@ export const getKitchenByUser = () => {
     }
   };
 };
+export const uploadKitchenPic = (event, kitchenId) => {
+  return async (dispatch, getState) => {
+    try {
+      const token = localStorage.getItem("token").replace(/['"]+/g, "");
+      const userId = localStorage.getItem("user").replace(/['"]+/g, "");
+
+      console.log("called on FE");
+
+      const file = event.target.files[0];
+      const formData = new FormData();
+      formData.append("image", file);
+
+      const res = await fetch(
+        `http://localhost:4000/api/users/${userId}/kitchen-pics/${kitchenId}`,
+        {
+          method: "POST",
+          body: formData,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (res.ok) {
+        console.log("Pictures uploaded");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
 
 export const registerKitchen = (kitchenData) => {
   return async (dispatch, getState) => {
@@ -275,9 +307,6 @@ export const editKitchen = (kitchenData, kitchenId) => {
       const token = localStorage.getItem("token").replace(/['"]+/g, "");
       const userId = localStorage.getItem("user").replace(/['"]+/g, "");
 
-      console.log("this is the kitchen id", kitchenId);
-      console.log("userID", userId);
-
       const response = await fetch(
         `http://localhost:4000/api/users/${userId}/kitchen/${kitchenId}`,
         {
@@ -300,36 +329,34 @@ export const editKitchen = (kitchenData, kitchenId) => {
   };
 };
 
-export const setEditor = () => {
-  return async (dispatch, getState) => {
-    try {
-      dispatch({ type: SET_EDITOR, payload: true });
-    } catch {}
-  };
-};
-
 export const uploadProfilePic = (event) => {
   return async (dispatch, getState) => {
-    /* const token = localStorage.getItem("token").replace(/['"]+/g, ""); */
+    const token = localStorage.getItem("token").replace(/['"]+/g, "");
+    const userId = localStorage.getItem("user").replace(/['"]+/g, "");
     try {
       console.log("called on FE");
 
       const file = event.target.files[0];
-      console.log("this is the file");
       const formData = new FormData();
       formData.append("image", file);
-      const res = await fetch("http://localhost:4000/api/users/avatar", {
-        method: "POST",
-        body: formData,
-        /*  headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${token}`,
-        }, */
-      });
+
+      const res = await fetch(
+        `http://localhost:4000/api/users/${userId}/avatar`,
+        {
+          method: "POST",
+          body: formData,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (res.ok) {
-        console.log("File uploaded");
+        console.log("Avatar uploaded");
+        dispatch(getProfile());
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 };

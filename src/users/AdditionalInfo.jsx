@@ -25,7 +25,6 @@ function AdditionalInfo() {
     e.preventDefault();
     dispatch(editUser(formData));
     navigate("/profile");
-    dispatch(getProfile());
   };
 
   return (

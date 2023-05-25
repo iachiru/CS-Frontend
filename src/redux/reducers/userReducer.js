@@ -1,4 +1,5 @@
 import {
+  AVATAR_UPLOAD,
   EDIT_USER,
   GET_PROFILE,
   IS_ERROR_USERS,
@@ -59,6 +60,11 @@ const userReducer = (state = initialState, action) => {
     case EDIT_USER:
       return {
         user: action.payload,
+      };
+    case AVATAR_UPLOAD:
+      return {
+        ...state,
+        image: action.payload,
       };
     default:
       return state;

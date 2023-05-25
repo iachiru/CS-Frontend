@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
 import React from "react";
@@ -18,6 +18,7 @@ function Login() {
     companyType: "",
     hostType: "",
   });
+
   const { email, password, address, companyName, companyAddress, companyType } =
     formData;
   const user = useSelector((state) => state.users.user);
@@ -30,11 +31,10 @@ function Login() {
       (!user.address ||
         !user.companyName ||
         !user.companyAddress ||
-        !user.companyType)
+        !user.companyType) //not fully working
     ) {
       navigate("/additional-info");
     } else {
-      dispatch(getProfile());
       navigate("/profile");
     }
   };
