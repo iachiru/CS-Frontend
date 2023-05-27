@@ -204,23 +204,17 @@ export const getKitchenByUser = () => {
     }
   };
 };
-export const uploadKitchenPic = (event, kitchenId) => {
+export const uploadKitchenPic = (formDataFiles, kitchenId) => {
   return async (dispatch, getState) => {
     try {
       const token = localStorage.getItem("token").replace(/['"]+/g, "");
       const userId = localStorage.getItem("user").replace(/['"]+/g, "");
 
-      console.log("called on FE");
-
-      const file = event.target.files[0];
-      const formData = new FormData();
-      formData.append("image", file);
-
       const res = await fetch(
         `http://localhost:4000/api/users/${userId}/kitchen-pics/${kitchenId}`,
         {
-          method: "POST",
-          body: formData,
+          method: "PUT",
+          body: formDataFiles,
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -228,6 +222,7 @@ export const uploadKitchenPic = (event, kitchenId) => {
       );
 
       if (res.ok) {
+        console.log(res);
         console.log("Pictures uploaded");
       }
     } catch (error) {
@@ -236,29 +231,44 @@ export const uploadKitchenPic = (event, kitchenId) => {
   };
 };
 
-export const registerKitchen = (kitchenData) => {
+export const registerKitchen = (kitchenData, formDataFiles) => {
   return async (dispatch, getState) => {
     try {
+      console.log("Called on FE");
+      console.log("This are the formData", formDataFiles);
       const token = localStorage.getItem("token").replace(/['"]+/g, "");
       const userId = localStorage.getItem("user").replace(/['"]+/g, "");
+
+      const kitchen = { data: kitchenData, images: formDataFiles };
+      /*    const formData = new FormData();
+      formData.append("kitchenData", JSON.stringify(kitchenData));
+
+      // Append each file in formDataFiles to the FormData object
+      for (const fileKey in formDataFiles) {
+        formData.append(fileKey, formDataFiles[fileKey]);
+      } */
+      console.log("Form Data Contents:");
+      for (const entry of formDataFiles.entries()) {
+        console.log(entry[0] + ": ", entry[1]);
+      }
+
       const response = await fetch(
         `http://localhost:4000/api/users/${userId}/kitchen`,
         {
           method: "POST",
-          body: JSON.stringify(kitchenData),
+          body: kitchen,
           headers: {
-            "Content-type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         }
       );
 
       if (response.status === 200 || response.status === 201) {
-        /*  */
-        //when this 2 lines of code are on, it creates the user but it also catches and error
-        //and returns "Could not create user"
-        dispatch({ type: REGISTER_KITCHEN, payload: kitchenData });
-        console.log("this is the kitchenData", kitchenData);
+        console.log("pictures uploaded, kitchen created", kitchen);
+        dispatch({
+          type: REGISTER_KITCHEN,
+          payload: kitchen,
+        });
       } else if (response.status === 400) {
         toast.error("Something went wrong");
       } else {
@@ -306,6 +316,7 @@ export const editKitchen = (kitchenData, kitchenId) => {
     try {
       const token = localStorage.getItem("token").replace(/['"]+/g, "");
       const userId = localStorage.getItem("user").replace(/['"]+/g, "");
+      console.log("kitchenId from edit", kitchenId);
 
       const response = await fetch(
         `http://localhost:4000/api/users/${userId}/kitchen/${kitchenId}`,
@@ -334,8 +345,6 @@ export const uploadProfilePic = (event) => {
     const token = localStorage.getItem("token").replace(/['"]+/g, "");
     const userId = localStorage.getItem("user").replace(/['"]+/g, "");
     try {
-      console.log("called on FE");
-
       const file = event.target.files[0];
       const formData = new FormData();
       formData.append("image", file);

@@ -7,7 +7,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Profile from "./users/Profile";
 import HomePage from "./pages/HomePage";
-import DisplayKitchenByUser from "./pages/DisplayKitchenByUser";
+
 import AdditionalInfo from "./users/AdditionalInfo";
 
 function App() {
@@ -20,7 +20,6 @@ function App() {
         <Route element={<Login />} path="/login" />
         <Route element={<Profile />} path="/profile" />
         <Route element={<HomePage />} path="/" />
-        <Route element={<DisplayKitchenByUser />} path="/kitchens" />
       </Routes>
       <ToastContainer />
     </BrowserRouter>
