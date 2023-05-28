@@ -231,43 +231,29 @@ export const uploadKitchenPic = (formDataFiles, kitchenId) => {
   };
 };
 
-export const registerKitchen = (kitchenData, formDataFiles) => {
+export const registerKitchen = (kitchenData) => {
   return async (dispatch, getState) => {
     try {
-      console.log("Called on FE");
-      console.log("This are the formData", formDataFiles);
       const token = localStorage.getItem("token").replace(/['"]+/g, "");
       const userId = localStorage.getItem("user").replace(/['"]+/g, "");
-
-      const kitchen = { data: kitchenData, images: formDataFiles };
-      /*    const formData = new FormData();
-      formData.append("kitchenData", JSON.stringify(kitchenData));
-
-      // Append each file in formDataFiles to the FormData object
-      for (const fileKey in formDataFiles) {
-        formData.append(fileKey, formDataFiles[fileKey]);
-      } */
-      console.log("Form Data Contents:");
-      for (const entry of formDataFiles.entries()) {
-        console.log(entry[0] + ": ", entry[1]);
-      }
 
       const response = await fetch(
         `http://localhost:4000/api/users/${userId}/kitchen`,
         {
           method: "POST",
-          body: kitchen,
+          body: JSON.stringify(kitchenData),
           headers: {
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         }
       );
 
       if (response.status === 200 || response.status === 201) {
-        console.log("pictures uploaded, kitchen created", kitchen);
+        console.log("kitchen created", kitchenData);
         dispatch({
           type: REGISTER_KITCHEN,
-          payload: kitchen,
+          payload: kitchenData,
         });
       } else if (response.status === 400) {
         toast.error("Something went wrong");

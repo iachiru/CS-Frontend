@@ -49,18 +49,17 @@ function KitchenModal(props) {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const formDataFiles = new FormData();
-    for (let i = 0; i < selectedFiles.length; i++) {
-      formDataFiles.append("images", selectedFiles[i]);
-    }
-    console.log("datafiles in KM", formDataFiles);
 
     if (props.data) {
-      dispatch(editKitchen(formData, props.data._id));
+      const formDataFiles = new FormData();
+      for (let i = 0; i < selectedFiles.length; i++) {
+        formDataFiles.append("images", selectedFiles[i]);
+      }
       dispatch(uploadKitchenPic(formDataFiles, props.data._id));
+      dispatch(editKitchen(formData, props.data._id));
       handleClose();
     } else {
-      dispatch(registerKitchen(formData, formDataFiles));
+      dispatch(registerKitchen(formData));
 
       if (formData.kitchenType === "") {
         toast.error("Please choose one option");
@@ -94,15 +93,17 @@ function KitchenModal(props) {
           <Form onSubmit={onSubmit}>
             {error && toast.error(error)}
 
-            <Form.Group className="mb-3" controlId="formBasicImage">
-              <Form.Label>Images</Form.Label>
-              <Form.Control
-                type="file"
-                name="files"
-                multiple
-                onChange={handleFileChange}
-              />
-            </Form.Group>
+            {props.data ? (
+              <Form.Group className="mb-3" controlId="formBasicImage">
+                <Form.Label>Images</Form.Label>
+                <Form.Control
+                  type="file"
+                  name="files"
+                  multiple
+                  onChange={handleFileChange}
+                />
+              </Form.Group>
+            ) : null}
 
             <Form.Group className="mb-3" controlId="formBasiPrice">
               <Form.Label>Price</Form.Label>
@@ -157,7 +158,7 @@ function KitchenModal(props) {
                   setError("");
                 }}
               >
-                <option defaultChecked>Choose one...</option>
+                <option>Choose one...</option>
                 <option>Dark kitchen</option>
                 <option>Residency</option>
                 <option>Central production unit</option>

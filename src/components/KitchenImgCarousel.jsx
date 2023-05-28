@@ -9,7 +9,7 @@ function KitchenImgCarousel(props) {
       <Carousel>
         {images.map((image, i) => (
           <Carousel.Item key={i}>
-            <img className="d-block w-100" src={image} alt="First slide" />;
+            <img className="d-block" src={image} alt="First slide" />
           </Carousel.Item>
         ))}
       </Carousel>
