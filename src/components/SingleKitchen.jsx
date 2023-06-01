@@ -22,21 +22,6 @@ function SingleKitchen(props) {
 
   return (
     <>
-      {/*  <Card style={{ width: "18rem" }} className="card">
-        <KitchenImgCarousel data={props.data.images} />
-        <Card.Body className>
-          <Card.Title>Kitchen {props.data.ref}</Card.Title>
-          <Card.Text>{props.data.description}</Card.Text>
-        </Card.Body>
-        <ListGroup className="list-group-flush">
-          <ListGroupItem>Price:{props.data.price}</ListGroupItem>
-          <ListGroupItem>Kitchen Type:{props.data.kitchenType}</ListGroupItem>
-          <ListGroupItem>Kitchen Address:{props.data.address}</ListGroupItem>
-        </ListGroup>
-        <Card.Body className="cardButton">
-          
-        </Card.Body>
-      </Card> */}
       <Container className="kitchen-container">
         <Col className="img-carousel">
           <KitchenImgCarousel data={props.data.images} />
@@ -54,7 +39,7 @@ function SingleKitchen(props) {
             <h5> About </h5>
             <p>{props.data.description}</p>
           </Row>
-          <Row className="info-row">
+          <Row className="info-row3">
             <Col>
               {" "}
               <h5>Address:</h5> {props.data.address}{" "}
@@ -65,7 +50,9 @@ function SingleKitchen(props) {
           </Row>
           <Row className="kitchen-btn-row">
             <KitchenModal data={props.data} />
-            <Button onClick={handleDelete}>Delete</Button>
+            <Button className="kitchen-card-button" onClick={handleDelete}>
+              Delete
+            </Button>
           </Row>
         </Col>
       </Container>

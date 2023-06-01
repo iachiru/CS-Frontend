@@ -113,7 +113,7 @@ function AdditionalInfo() {
               <option>Agency</option>
             </Form.Control>
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button className="kitchen-card-button" type="submit">
             Submit
           </Button>
         </Form>

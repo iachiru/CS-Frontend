@@ -53,8 +53,8 @@ function UserModal(props) {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Edit
+      <Button className="kitchen-card-button" onClick={handleShow}>
+        Edit user info
       </Button>
 
       <Modal show={show} onHide={handleClose}>
@@ -154,7 +154,7 @@ function UserModal(props) {
                 <option>Agency</option>
               </Form.Control>
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button className="kitchen-card-button" type="submit">
               Submit
             </Button>
           </Form>

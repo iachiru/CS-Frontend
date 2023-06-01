@@ -3,9 +3,9 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  background-color: #f9f4edff;
+  background-color: #feead6ff; /* antique-white */
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* -moz-osx-font-smoothing: grayscale; */
 }
 
 code {
@@ -17,73 +17,143 @@ code {
   background-color: #171717ff;
 }
 
-.cardContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 3rem 1rem 3rem 1rem;
-}
-
-.card {
-  margin-top: 1rem;
-}
-
-.cardButton {
-  display: flex;
-  justify-content: space-around;
-}
-
-.avatar-img {
-  width: 100px;
-  height: 100px;
-}
-
 /* kitchen CSS */
 
 .kitchen-container {
-  border: 2px solid red;
+  background-color: #fef2e6;
+  border: 2px groove #fabf85;
   height: 500px;
   display: flex;
   width: 100vw;
   margin: 0 10px 10px 20px;
   padding: 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  border-radius: 3rem;
 }
 
 .img-carousel {
   display: flex;
-  border: 2px solid green;
   width: 100%;
   height: 100%;
   align-items: center;
   justify-content: center;
 }
 
-.kitchen.info {
-  border: 2px solid blue;
+.kitchen-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 30%;
   height: 100%;
 }
 
-.info-row {
-  height: 16%;
-  border: 2px solid purple;
-}
 .info-row1 {
   display: flex;
   flex-direction: column;
   height: 16%;
-  border: 2px solid purple;
-  margin: 5px 0 5px 0;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+  border-radius: 2rem;
+  padding: 10px;
 }
 .info-row2 {
   display: flex;
   flex-direction: column;
-  border: 2px solid purple;
   height: 50%;
   width: auto;
+  border-radius: 2rem;
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
 }
 
+.info-row3 {
+  display: flex;
+  flex-direction: row;
+  height: 16%;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+  border-radius: 2rem;
+  padding: 10px;
+}
 .d-block {
   width: 500px;
   height: 400px;
+}
+
+.kitchen-btn-row {
+  display: flex;
+  justify-content: space-evenly;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+  border-radius: 2rem;
+  padding: 10px;
+}
+
+.kitchen-card-button {
+  background-color: #fbeee0;
+  border: 2px solid #422800;
+  border-radius: 30px;
+  box-shadow: #422800 4px 4px 0 0;
+  color: #422800;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 0 18px;
+  line-height: 50px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.kitchen-card-button:hover {
+  background-color: #fff;
+  color: #422800;
+}
+
+.kitchen-card-button:active {
+  box-shadow: #422800 2px 2px 0 0;
+  transform: translate(2px, 2px);
+}
+
+/*User info*/
+
+.user-info-container {
+  background-color: #fef2e6;
+  border: 2px groove #fabf85;
+  height: 300px;
+  display: flex;
+  width: 100vw;
+  margin: 0 10px 10px 20px;
+  padding: 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  border-radius: 3rem;
+  border: 2px solid red;
+}
+
+.avatar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid red;
+}
+
+.avatar-img {
+  height: 70%;
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30%;
+  height: 100%;
+  border: 2px solid red;
 }

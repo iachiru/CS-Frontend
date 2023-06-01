@@ -76,11 +76,11 @@ function KitchenModal(props) {
   return (
     <>
       {props.data ? (
-        <Button variant="primary" onClick={handleShow}>
+        <Button className="kitchen-card-button" onClick={handleShow}>
           Edit
         </Button>
       ) : (
-        <Button variant="primary" onClick={handleShow}>
+        <Button className="kitchen-card-button" onClick={handleShow}>
           Create Kitchen
         </Button>
       )}
@@ -164,7 +164,7 @@ function KitchenModal(props) {
                 <option>Central production unit</option>
               </Form.Control>
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button type="submit" className="kitchen-card-button">
               Submit
             </Button>
           </Form>
