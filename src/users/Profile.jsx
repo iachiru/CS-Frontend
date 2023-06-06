@@ -23,51 +23,31 @@ function Profile() {
   return (
     user && (
       <>
-        {/*   <Card>
-          <Card.Header>{user.name}</Card.Header>
-          <Card.Img src={user.image} alt="User avatar" className="avatar-img" />
-          <Card.Body>
-            <Card.Title>
-              Works at: {user.companyName}
-              {user.companyType}
-            </Card.Title>
-            <Card.Text>Located: {user.companyAddress}</Card.Text>
-            <Card.Text>Email: {user.email}</Card.Text>
-            <Card.Text>Type of host: {user.hostType}</Card.Text>
-          </Card.Body>
-        </Card> */}
-
-        <Container className="user-info-container">
-          <Col className="avatar">
-            <img src={user.image} alt="User avatar" className="avatar-img" />
-            <input type="file" className="input" onChange={handleChange} />
-          </Col>
-          <Col className="user-info">
-            <Row className="">
-              <h5>Hello {user.name}</h5>
-              {""}
+        <Container fluid>
+          <Row className="m-1 user-info-container">
+            <Col className="avatar d-flex">
+              <img src={user.image} alt="User avatar" className="avatar-img" />
+              <input type="file" className="input" onChange={handleChange} />
+            </Col>
+            <Col className="user-info mt-2 d-flex flex-column justify-content-around">
+              <h6>Hello {user.name}</h6>
+              <h6>Contact email: {user.email}</h6>
               <h6>You are a: {user.hostType} </h6>
-            </Row>
-            <Row className="">
+            </Col>
+            <Col className="company-info mt-2 d-flex flex-column justify-content-around">
               <h6>At: {user.companyName}</h6>
-              <p>This company is a: {user.companyType}</p>
-            </Row>
-            <Row className="">
-              <Col>
-                {" "}
-                <h5>Company address:</h5> {user.companyAddress}{" "}
-              </Col>
-              <Col>
-                <h5>Contact email:</h5> {user.email}{" "}
-              </Col>
-            </Row>
-            <Row className="kitchen-btn-row">
+              <h6>This company is a: {user.companyType}</h6>
+              <h6>Company address: {user.companyAddress}</h6>
+            </Col>
+            <Col className="profile-btn-row d-flex flex-column justify-content-around align-items-center">
               <UserModal data={user} />
               <KitchenModal />
-            </Row>
-          </Col>
+            </Col>
+          </Row>
+          <Row className="kitchen-cards">
+            <Kitchens />
+          </Row>
         </Container>
-        <Kitchens />
       </>
     )
   );
