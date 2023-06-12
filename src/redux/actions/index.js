@@ -195,7 +195,6 @@ export const getKitchenByUser = () => {
       if (res.ok) {
         const data = await res.json();
         dispatch({ type: GET_KITCHEN, payload: data });
-        console.log("info from gKBU", data);
       } else {
         console.log("Error getting users");
       }

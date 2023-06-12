@@ -25,7 +25,7 @@ function Profile() {
       <>
         <Container fluid>
           <Row className="m-1 user-info-container">
-            <Col className="avatar d-flex">
+            <Col className="avatar d-flex flex-wrap justify-content-center align-items-center">
               <img src={user.image} alt="User avatar" className="avatar-img" />
               <input type="file" className="input" onChange={handleChange} />
             </Col>
@@ -44,9 +44,7 @@ function Profile() {
               <KitchenModal />
             </Col>
           </Row>
-          <Row className="kitchen-cards">
-            <Kitchens />
-          </Row>
+          <Kitchens />
         </Container>
       </>
     )

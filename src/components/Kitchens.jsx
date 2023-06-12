@@ -3,6 +3,7 @@ import { getKitchenByUser } from "../redux/actions";
 import { useEffect } from "react";
 
 import SingleKitchen from "./SingleKitchen";
+import { Row } from "react-bootstrap";
 
 function Kitchens() {
   const dispatch = useDispatch();
@@ -14,11 +15,13 @@ function Kitchens() {
 
   return (
     kitchen && (
-      <div className="cardContainer">
+      <>
         {kitchen.map((kitchen, i) => (
-          <SingleKitchen data={kitchen} key={i} />
+          <Row className="kitchen-container" key={i}>
+            <SingleKitchen data={kitchen} />
+          </Row>
         ))}
-      </div>
+      </>
     )
   );
 }

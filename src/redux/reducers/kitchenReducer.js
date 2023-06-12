@@ -8,7 +8,7 @@ import {
 } from "../actions";
 
 const initialState = {
-  image: "",
+  images: "",
   ref: "",
   price: "",
   description: "",
