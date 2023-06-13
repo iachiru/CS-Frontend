@@ -47,20 +47,15 @@ code {
 .carousel-img {
   height: 100%;
   width: 100%;
+  border: 2px groove #fabf85;
+  border-radius: 2rem;
 }
-
-/* .kitchen-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 30%;
-  height: 100%;
-} */
 
 .img-wrapper > img {
   height: 100%;
   width: 100%;
   border-radius: 2rem;
+  border: 2px groove #fabf85;
 }
 
 .kitchen-card-button {
@@ -91,6 +86,13 @@ code {
 .kitchen-card-button:active {
   box-shadow: #422800 2px 2px 0 0;
   transform: translate(2px, 2px);
+}
+.jumbotron {
+  color: #171717ff;
+  text-shadow: 5px 5px 10px #fbeee0;
+  background-image: url("./assets/restaurant-kitchen.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 /*User info*/
