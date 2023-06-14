@@ -13,8 +13,15 @@ code {
     monospace;
 }
 
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .navBar {
-  background-color: #171717ff;
+  color: #fef2e6;
+  background-color: #4b4a48ff;
 }
 
 /* kitchen CSS */
@@ -121,4 +128,13 @@ code {
 .company-info {
   width: 30%;
   height: 100%;
+}
+
+.footer {
+  background-color: #4b4a48ff;
+  color: #fef2e6;
+}
+
+.footer-icon {
+  color: #f9f4edff;
 }

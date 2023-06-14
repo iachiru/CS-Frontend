@@ -7,22 +7,25 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Profile from "./users/Profile";
 import HomePage from "./pages/HomePage";
-
 import AdditionalInfo from "./users/AdditionalInfo";
+import Footer from "./components/Footer";
 
 function App() {
   return (
-    <BrowserRouter>
-      <NavbarComponent />
-      <Routes>
-        <Route element={<Register />} path="/register" />
-        <Route element={<AdditionalInfo />} path="/additional-info" />
-        <Route element={<Login />} path="/login" />
-        <Route element={<Profile />} path="/profile" />
-        <Route element={<HomePage />} path="/" />
-      </Routes>
-      <ToastContainer />
-    </BrowserRouter>
+    <div className="App">
+      <BrowserRouter>
+        <NavbarComponent />
+        <Routes>
+          <Route element={<Register />} path="/register" />
+          <Route element={<AdditionalInfo />} path="/additional-info" />
+          <Route element={<Login />} path="/login" />
+          <Route element={<Profile />} path="/profile" />
+          <Route element={<HomePage />} path="/" />
+        </Routes>
+        <ToastContainer />
+        <Footer />
+      </BrowserRouter>
+    </div>
   );
 }
 

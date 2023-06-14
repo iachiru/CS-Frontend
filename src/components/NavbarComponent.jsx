@@ -3,6 +3,8 @@ import { Button, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../redux/actions";
+import RegisterModal from "../users/RegisterModal";
+import LoginModal from "../users/LoginModal";
 
 const NavbarComponent = () => {
   const dispatch = useDispatch();
@@ -12,17 +14,14 @@ const NavbarComponent = () => {
 
   return (
     <>
-      <Navbar bg="dark" variant="dark" className="navBar">
+      <Navbar variant="dark" className="navBar">
         <Navbar.Brand href="/home">Find Your Kitchen</Navbar.Brand>
         <Nav className="mr-auto">
-          <Link to="/register">
-            <div className={"nav-link"}>Register</div>{" "}
-          </Link>
-          <Link to="/login">
-            {" "}
-            <div className={"nav-link"}>Login</div>
-          </Link>
-          <Button onClick={signOut}>Logout</Button>
+          <RegisterModal />
+          <LoginModal />
+          <Button className="kitchen-card-button" onClick={signOut}>
+            Logout
+          </Button>
         </Nav>
       </Navbar>
     </>
