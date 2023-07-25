@@ -1,4 +1,7 @@
 import {
+  AVATAR_UPLOAD,
+  EDIT_USER,
+  GET_PROFILE,
   IS_ERROR_USERS,
   IS_LOADING_USERS,
   LOGOUT,
@@ -10,6 +13,7 @@ import {
 const initialState = {
   user: JSON.parse(localStorage.getItem("user")) || null,
   token: JSON.parse(localStorage.getItem("token")) || null,
+
   isError: false,
   isLoading: true,
   message: "",
@@ -20,17 +24,17 @@ const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case REGISTER_USER:
       return {
-        ...state,
         user: action.payload,
       };
     case LOG_IN_USER:
       return {
-        ...state,
         user: action.payload,
+        isError: false,
+        isLoading: false,
+        message: "",
       };
     case LOGOUT:
       return {
-        ...state,
         user: action.payload,
         token: action.payload,
       };
@@ -48,6 +52,19 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         message: action.payload,
+      };
+    case GET_PROFILE:
+      return {
+        user: action.payload,
+      };
+    case EDIT_USER:
+      return {
+        user: action.payload,
+      };
+    case AVATAR_UPLOAD:
+      return {
+        ...state,
+        image: action.payload,
       };
     default:
       return state;

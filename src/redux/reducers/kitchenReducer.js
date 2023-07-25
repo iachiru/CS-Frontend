@@ -1,13 +1,48 @@
-import { GET_KITCHEN } from "../actions";
+import {
+  DELETE_KITCHEN,
+  EDIT_KITCHEN,
+  GET_KITCHEN,
+  KITCHEN_LOGOUT,
+  REGISTER_KITCHEN,
+  SET_EDITOR,
+} from "../actions";
 
-const initialState = { name: "" };
+const initialState = {
+  images: "",
+  ref: "",
+  price: "",
+  description: "",
+  kitchenType: "",
+  address: "",
+  user: "",
+};
 
 const kitchenReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_KITCHEN:
       return {
+        kitchen: action.payload,
+      };
+    case REGISTER_KITCHEN:
+      return {
+        kitchen: action.payload,
+      };
+    case EDIT_KITCHEN:
+      return {
+        kitchen: action.payload,
+      };
+    case SET_EDITOR:
+      return {
         ...state,
-        name: action.payload,
+        setEditor: action.payload,
+      };
+    case DELETE_KITCHEN:
+      return {
+        kitchen: action.payload,
+      };
+    case KITCHEN_LOGOUT:
+      return {
+        kitchen: action.payload,
       };
 
     default:

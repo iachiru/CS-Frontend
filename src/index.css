@@ -1,13 +1,140 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
+  background-color: #feead6ff; /* antique-white */
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* -moz-osx-font-smoothing: grayscale; */
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.navBar {
+  color: #fef2e6;
+  background-color: #4b4a48ff;
+}
+
+/* kitchen CSS */
+
+.kitchen-container {
+  background-color: #fef2e6;
+  border: 2px groove #fabf85;
+  margin: 0 10px 10px 20px;
+  padding: 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  border-radius: 3rem;
+}
+
+.carousel-wrapper {
+  height: 400px;
+  width: 400px;
+  display: flex;
+}
+
+.carousel-indicators li {
+  display: none;
+}
+
+.carousel-inner {
+  height: 100%;
+  width: 100%;
+}
+
+.carousel-img {
+  height: 100%;
+  width: 100%;
+  border: 2px groove #fabf85;
+  border-radius: 2rem;
+}
+
+.img-wrapper > img {
+  height: 100%;
+  width: 100%;
+  border-radius: 2rem;
+  border: 2px groove #fabf85;
+}
+
+.kitchen-card-button {
+  background-color: #fbeee0;
+  border: 2px solid #422800;
+  width: 10rem;
+  border-radius: 30px;
+  box-shadow: #422800 4px 4px 0 0;
+  color: #422800;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 0 18px;
+  line-height: 50px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.kitchen-card-button:hover {
+  background-color: #fff;
+  color: #422800;
+}
+
+.kitchen-card-button:active {
+  box-shadow: #422800 2px 2px 0 0;
+  transform: translate(2px, 2px);
+}
+.jumbotron {
+  color: #171717ff;
+  text-shadow: 5px 5px 10px #fbeee0;
+  background-image: url("./assets/restaurant-kitchen.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/*User info*/
+
+.user-info-container {
+  background-color: #fef2e6;
+  border: 2px groove #fabf85;
+  height: 300px;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  border-radius: 3rem;
+}
+
+.avatar-img {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+}
+
+.user-info {
+  width: 30%;
+  height: 100%;
+}
+
+.company-info {
+  width: 30%;
+  height: 100%;
+}
+
+.footer {
+  background-color: #4b4a48ff;
+  color: #fef2e6;
+}
+
+.footer-icon {
+  color: #f9f4edff;
 }
